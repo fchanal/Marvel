@@ -13,31 +13,35 @@ const styles = {
   }
 };
 
-//<Typography variant="subtitle1" className={classes.title}>Comics</Typography>
-//{map(({ name, resourceURI }) => (
-//<div key={resourceURI}>{name}</div>
-//), comics.items)}
-//<Typography variant="subtitle1" className={classes.title}>Series</Typography>
-//{map(({ name, resourceURI }) => (
-//<div key={resourceURI}>{name}</div>
-//), series.items)}
+const Paragraph = ({ listName, list, classes }) => ((list) ? (
+  <div>
+    <Typography variant="subtitle1" className={classes.title}>{listName}</Typography>
+    {map(({ name, resourceURI }) => (
+      <div key={resourceURI}>{name}</div>
+    ), list.items)}
+  </div>
+) : null);
 
-const Detail = ({ setCurrentMarvelId, name, description, series, comics, classes }) => (
+Paragraph.propTypes = {
+  listName: PropTypes.string.isRequired,
+  list: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+}
+
+const Detail = ({ setCurrentMarvelId, character: { name, description, series, comics }, classes }) => (
   <Paper>
     <Typography>{name}</Typography>
     <Typography>{description}</Typography>
-    <Typography variant="subtitle1" className={classes.title}>Comics</Typography>
+    <Paragraph list={series} listName={'Series'} classes={classes} />
+    <Paragraph list={comics} listName={'Comics'} classes={classes} />
     <Button variant="contained" size="small" color="primary" onClick={() => setCurrentMarvelId(null)}>Back</Button>
   </Paper>
 )
 
 Detail.propTypes = {
-  //name: PropTypes.string.isRequired,
-  //description: PropTypes.string.isRequired,
-  //comics: PropTypes.object.isRequired,
-  //series: PropTypes.object.isRequired,
-  //classes: PropTypes.object.isRequired,
-  //setCurrentMarvelId: PropTypes.func.isRequired,
+  character: PropTypes.object,
+  classes: PropTypes.object.isRequired,
+  setCurrentMarvelId: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Detail);

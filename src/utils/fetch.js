@@ -14,3 +14,13 @@ export const characters = () => new Promise((resolve, reject) => {
   }).then((response) => response.json().then(({ data: { results = [] }}) => resolve(results)))
     .catch(reject)
 })
+
+export const loadCharacters = (id) => new Promise((resolve, reject) => {
+  const now = Math.round(+new Date() / 1000);
+  const hash = md5(`${now}${API_PRIVATE}${API_PUBLIC}`);
+
+  fetch(`${BASE_URL}${CHARACTERS_URI}/${id}?apikey=${API_PUBLIC}&hash=${hash}&ts=${now}`, {
+    method: 'get',
+  }).then((response) => response.json().then(({ data: { results = [] }}) => resolve(results)))
+    .catch(reject)
+})

@@ -1,18 +1,14 @@
-import { compose, lifecycle } from 'recompose';
+import { compose, lifecycle, withState } from 'recompose';
 import Detail from './Component';
-import { find, propEq } from 'ramda'
+import { loadCharacters } from '../../utils/fetch'
 
 const enhance = compose(
+  withState('character', 'setCharacter', {}),
   lifecycle({
     componentDidMount() {
-      const { currentMarvelId, characters } = this.props;
-      const { name, description, series, comics } = find(propEq('id', currentMarvelId))(characters);
-      this.setState({
-        name: name,
-        description: description,
-        series: series,
-        comics: comics,
-      })
+      loadCharacters(this.props.currentMarvelId)
+        .then((character) => this.props.setCharacter(character[0]))
+        .catch((error) => console.log(error.message))
     }
   })
 )

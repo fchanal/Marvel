@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import List from '../List';
 import Detail from '../Detail';
 
-const Focus = ({ characters, currentMarvelId, setCurrentMarvelId }) => (currentMarvelId === null) ?
-<List characters={characters} setCurrentMarvelId={setCurrentMarvelId} /> :
-<Detail characters={characters} currentMarvelId={currentMarvelId} setCurrentMarvelId={setCurrentMarvelId} />;
+const Focus = ({ characters, currentMarvelId, setCurrentMarvelId }) => (currentMarvelId) ?
+<Detail currentMarvelId={currentMarvelId} setCurrentMarvelId={setCurrentMarvelId} /> :
+<List characters={characters} setCurrentMarvelId={setCurrentMarvelId} />;
 
 Focus.propTypes = {
   characters: PropTypes.array.isRequired,
