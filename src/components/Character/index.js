@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Detail from '../Detail'
+import Button from '@material-ui/core/Button';
 
 const styles = {
   card: {
@@ -19,20 +19,24 @@ const styles = {
     width: '250px',
     height: '250px',
   },
+  button: {
+    marginLeft: '10px',
+  },
 };
 
-const Character = ({ name, id, description, comics, series, thumbnail: { path, extension }, classes }) => (
+const Character = ({ name, id, description, comics, series, thumbnail: { path, extension }, setCurrentMarvelId, classes }) => (
   <Card className={classes.card}>
     <CardContent>
       <img className={classes.image} src={`${path}.${extension}`} alt={name} />
       <hr />
       <Typography>{name}</Typography>
     </CardContent>
-    <Detail name={name} id={id} description={description} comics={comics} series={series} />
+    <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={() => setCurrentMarvelId(id)}>Detail</Button>
   </Card>
 )
 
 Character.propTypes = {
+  setCurrentMarvelId: PropTypes.func.isRequired,
   thumbnail: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,

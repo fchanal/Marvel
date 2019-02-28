@@ -4,6 +4,7 @@ import { characters } from '../../utils/fetch'
 
 const enhance = compose(
   withState('characters', 'setCharacters', []),
+  withState('currentMarvelId', 'setCurrentMarvelId', null),
   lifecycle({
     componentDidMount() {
       characters()
