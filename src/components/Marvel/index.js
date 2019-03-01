@@ -24,7 +24,7 @@ const styles = {
   },
 };
 
-const Marvel = ({ name, id, description, comics, series, thumbnail: { path, extension }, loadMarvel, classes }) => (
+const Marvel = ({ name, id, thumbnail: { path, extension }, loadMarvel, classes }) => (
   <Card className={classes.card}>
     <CardContent>
       <img className={classes.image} src={`${path}.${extension}`} alt={name} />
@@ -40,9 +40,6 @@ Marvel.propTypes = {
   thumbnail: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  comics: PropTypes.object.isRequired,
-  series: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
