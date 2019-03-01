@@ -5,7 +5,7 @@ const API_PRIVATE = 'b0223681fced28de0fe97e6b9cd091dd36a5b71d';
 const BASE_URL = 'http://gateway.marvel.com:80';
 const CHARACTERS_URI = '/v1/public/characters';
 
-export const loadMarvels = () => new Promise((resolve, reject) => {
+export const requestMarvels = () => new Promise((resolve, reject) => {
   const now = Math.round(+new Date() / 1000);
   const hash = md5(`${now}${API_PRIVATE}${API_PUBLIC}`);
 
@@ -15,7 +15,7 @@ export const loadMarvels = () => new Promise((resolve, reject) => {
     .catch(reject)
 })
 
-const loadMarvelId = (id) => new Promise((resolve, reject) => {
+export const requestMarvelId = (id) => new Promise((resolve, reject) => {
   const now = Math.round(+new Date() / 1000);
   const hash = md5(`${now}${API_PRIVATE}${API_PUBLIC}`);
 
@@ -24,7 +24,3 @@ const loadMarvelId = (id) => new Promise((resolve, reject) => {
   }).then((response) => response.json().then(({ data: { results = [] }}) => resolve(results[0])))
     .catch(reject)
 })
-
-export const setMarvelinState = (setCurrentMarvel, id) => loadMarvelId(id)
-  .then(setCurrentMarvel)
-  .catch((error) => console.log(error.message))

@@ -1,15 +1,18 @@
-import { compose, lifecycle, withState } from 'recompose';
+import { compose, lifecycle, withState, withHandlers } from 'recompose';
 import App from './Component';
-import { loadMarvels } from '../../utils'
+import { requestMarvels, requestMarvelId } from '../../utils';
 
 const enhance = compose(
   withState('marvels', 'setMarvels', []),
-  withState('currentMarvel', 'setCurrentMarvel', null),
+  withState('currentMarvel', 'setCurrentMarvel'),
+  withHandlers({
+    loadMarvels: ({ setMarvels }) => () => requestMarvels().then(setMarvels),
+    loadMarvel: ({ setCurrentMarvel }) => (id) => requestMarvelId(id).then(setCurrentMarvel),
+    resetMarvel: ({ setCurrentMarvel }) => () => setCurrentMarvel(),
+  }),
   lifecycle({
     componentDidMount() {
-      loadMarvels()
-        .then(this.props.setMarvels)
-        .catch((error) => console.log(error.message))
+      this.props.loadMarvels()
     }
   })
 )

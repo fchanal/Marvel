@@ -59,22 +59,22 @@ Paragraph.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-const Detail = ({ currentMarvel: { name, description, series, comics, events }, resetMarvel, classes }) => (
+const Detail = ({ currentMarvel: { name, description, series, comics, events }, unLoadMarvel, classes }) => (
   <Paper className={classes.paper}>
     <Grid container direction="column" className={classes.detail}>
-      <Grid item>
-        <Typography className={classes.description} variant="caption">{((description) ? description : name)}</Typography>
-      </Grid>
-      <Grid item className={classes.paragraph}>
-        <div>
+        <Grid item>
+          <Typography className={classes.description} variant="caption">{((description) ? description : name)}</Typography>
+        </Grid>
+        <Grid item className={classes.paragraph}>
+          <div>
           <Paragraph list={series} listName={'Series'} classes={classes} />
           <Paragraph list={comics} listName={'Comics'} classes={classes} />
           <Paragraph list={events} listName={'Events'} classes={classes} />
         </div>
-      </Grid>
-      <Grid item className={classes.button}>
-        <Button variant="contained" size="small" color="primary" onClick={resetMarvel}>Back</Button>
-      </Grid>
+        </Grid>
+        <Grid item className={classes.button}>
+          <Button variant="contained" size="small" color="primary" onClick={unLoadMarvel}>Back</Button>
+        </Grid>
     </Grid>
   </Paper>
 )
@@ -82,7 +82,7 @@ const Detail = ({ currentMarvel: { name, description, series, comics, events }, 
 Detail.propTypes = {
   currentMarvel: PropTypes.object,
   classes: PropTypes.object.isRequired,
-  resetMarvel: PropTypes.func.isRequired,
+  unLoadMarvel: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Detail);

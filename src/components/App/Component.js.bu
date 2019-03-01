@@ -6,18 +6,18 @@ import Typography from '@material-ui/core/Typography';
 import List from '../List';
 import Detail from '../Detail';
 
-const Focus = ({ marvels, currentMarvel, loadMarvel, resetMarvel }) => (currentMarvel) ?
-<Detail currentMarvel={currentMarvel} resetMarvel={resetMarvel} /> :
+const Focus = ({ marvels, currentMarvel, loadMarvel, unLoadMarvel }) => (currentMarvel) ?
+<Detail currentMarvel={currentMarvel} unLoadMarvel={unLoadMarvel} /> :
 <List marvels={marvels} loadMarvel={loadMarvel} />;
 
 Focus.propTypes = {
   marvels: PropTypes.array.isRequired,
   currentMarvel: PropTypes.object,
   loadMarvel: PropTypes.func.isRequired,
-  resetMarvel: PropTypes.func.isRequired,
+  unLoadMarvel: PropTypes.func.isRequired,
 }
 
-const App = ({ marvels, currentMarvel, loadMarvel, resetMarvel }) => (
+const App = ({ marvels, currentMarvel, loadMarvel, unLoadMarvel }) => (
   <Grid container direction="column">
     <Header>
       <HeaderLeft>
@@ -25,7 +25,7 @@ const App = ({ marvels, currentMarvel, loadMarvel, resetMarvel }) => (
       </HeaderLeft>
     </Header>
     <Grid container justify="space-around">
-      <Focus marvels={marvels} currentMarvel={currentMarvel} loadMarvel={loadMarvel} resetMarvel={resetMarvel} />
+      <Focus marvels={marvels} currentMarvel={currentMarvel} loadMarvel={loadMarvel} unLoadMarvel={unLoadMarvel} />
     </Grid>
   </Grid>
 )

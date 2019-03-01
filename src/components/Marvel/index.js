@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { setMarvelinState } from '../../utils'
 
 const styles = {
   card: {
@@ -25,19 +24,19 @@ const styles = {
   },
 };
 
-const Character = ({ name, id, description, comics, series, thumbnail: { path, extension }, setCurrentMarvel, classes }) => (
+const Marvel = ({ name, id, description, comics, series, thumbnail: { path, extension }, loadMarvel, classes }) => (
   <Card className={classes.card}>
     <CardContent>
       <img className={classes.image} src={`${path}.${extension}`} alt={name} />
       <hr />
       <Typography>{name}</Typography>
     </CardContent>
-    <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={() => setMarvelinState(setCurrentMarvel, id)}>Detail</Button>
+    <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={() => loadMarvel(id)}>Detail</Button>
   </Card>
 )
 
-Character.propTypes = {
-  setCurrentMarvel: PropTypes.func.isRequired,
+Marvel.propTypes = {
+  loadMarvel: PropTypes.func.isRequired,
   thumbnail: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
@@ -47,4 +46,4 @@ Character.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(Character);
+export default withStyles(styles)(Marvel);
