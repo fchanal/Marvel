@@ -6,17 +6,17 @@ import Typography from '@material-ui/core/Typography';
 import List from '../List';
 import Detail from '../Detail';
 
-const Focus = ({ characters, currentMarvelId, setCurrentMarvelId }) => (currentMarvelId) ?
-<Detail currentMarvelId={currentMarvelId} setCurrentMarvelId={setCurrentMarvelId} /> :
-<List characters={characters} setCurrentMarvelId={setCurrentMarvelId} />;
+const Focus = ({ marvels, currentMarvel, setCurrentMarvel }) => (currentMarvel) ?
+<Detail currentMarvel={currentMarvel} setCurrentMarvel={setCurrentMarvel} /> :
+<List marvels={marvels} setCurrentMarvel={setCurrentMarvel} />;
 
 Focus.propTypes = {
-  characters: PropTypes.array.isRequired,
-  currentMarvelId: PropTypes.number,
-  setCurrentMarvelId: PropTypes.func.isRequired,
+  marvels: PropTypes.array.isRequired,
+  currentMarvel: PropTypes.object,
+  setCurrentMarvel: PropTypes.func.isRequired,
 }
 
-const App = ({ characters, currentMarvelId, setCurrentMarvelId }) => (
+const App = ({ marvels, currentMarvel, setCurrentMarvel }) => (
   <Grid container direction="column">
     <Header>
       <HeaderLeft>
@@ -24,15 +24,15 @@ const App = ({ characters, currentMarvelId, setCurrentMarvelId }) => (
       </HeaderLeft>
     </Header>
     <Grid container justify="space-around">
-      <Focus characters={characters} currentMarvelId={currentMarvelId} setCurrentMarvelId={setCurrentMarvelId} />
+      <Focus marvels={marvels} currentMarvel={currentMarvel} setCurrentMarvel={setCurrentMarvel} />
     </Grid>
   </Grid>
 )
 
 App.propTypes = {
-  characters: PropTypes.array.isRequired,
-  currentMarvelId: PropTypes.number,
-  setCurrentMarvelId : PropTypes.func.isRequired,
+  marvels: PropTypes.array.isRequired,
+  currentMarvel: PropTypes.object,
+  setCurrentMarvel : PropTypes.func.isRequired,
 }
 
 export default App;

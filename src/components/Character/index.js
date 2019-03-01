@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { setMarvelinState } from '../../utils'
 
 const styles = {
   card: {
@@ -24,19 +25,19 @@ const styles = {
   },
 };
 
-const Character = ({ name, id, description, comics, series, thumbnail: { path, extension }, setCurrentMarvelId, classes }) => (
+const Character = ({ name, id, description, comics, series, thumbnail: { path, extension }, setCurrentMarvel, classes }) => (
   <Card className={classes.card}>
     <CardContent>
       <img className={classes.image} src={`${path}.${extension}`} alt={name} />
       <hr />
       <Typography>{name}</Typography>
     </CardContent>
-    <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={() => setCurrentMarvelId(id)}>Detail</Button>
+    <Button className={classes.button} variant="outlined" size="small" color="primary" onClick={() => setMarvelinState(setCurrentMarvel, id)}>Detail</Button>
   </Card>
 )
 
 Character.propTypes = {
-  setCurrentMarvelId: PropTypes.func.isRequired,
+  setCurrentMarvel: PropTypes.func.isRequired,
   thumbnail: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,

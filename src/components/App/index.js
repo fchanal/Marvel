@@ -1,14 +1,14 @@
 import { compose, lifecycle, withState } from 'recompose';
 import App from './Component';
-import { characters } from '../../utils/fetch'
+import { loadMarvels } from '../../utils'
 
 const enhance = compose(
-  withState('characters', 'setCharacters', []),
-  withState('currentMarvelId', 'setCurrentMarvelId', null),
+  withState('marvels', 'setMarvels', []),
+  withState('currentMarvel', 'setCurrentMarvel', null),
   lifecycle({
     componentDidMount() {
-      characters()
-        .then(this.props.setCharacters)
+      loadMarvels()
+        .then(this.props.setMarvels)
         .catch((error) => console.log(error.message))
     }
   })

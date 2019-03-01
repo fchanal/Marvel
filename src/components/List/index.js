@@ -4,17 +4,17 @@ import Grid from '@material-ui/core/Grid';
 import { map } from 'ramda';
 import Character from '../Character';
 
-const List = ({ characters, setCurrentMarvelId }) => (
-    map(character => (
-      <Grid item key={character.id}>
-        <Character {...character} setCurrentMarvelId={setCurrentMarvelId} />
+const List = ({ marvels, setCurrentMarvel }) => (
+    map(marvel => (
+      <Grid item key={marvel.id}>
+        <Character {...marvel} setCurrentMarvel={setCurrentMarvel} />
       </Grid>
-    ), characters)
+    ), marvels)
 )
 
 List.propTypes = {
-  characters: PropTypes.array.isRequired,
-  setCurrentMarvelId: PropTypes.func.isRequired,
+  marvels: PropTypes.array.isRequired,
+  setCurrentMarvel: PropTypes.func.isRequired,
 }
 
 export default List;
