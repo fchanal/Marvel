@@ -30,7 +30,7 @@ Header.propTypes = {
 export const HeaderLeft = ({ children }) => <div>{children}</div>;
 
 HeaderLeft.propTypes = {
-  children: PropTypes.node.isRequired,
+children: PropTypes.node.isRequired,
 };
 
 export const HeaderRight = ({ children }) => <div>{children}</div>;

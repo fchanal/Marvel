@@ -1,20 +1,38 @@
-import { compose, lifecycle, withState, withHandlers } from 'recompose';
+import { compose, lifecycle } from 'recompose';
+import { connect } from 'react-redux';
 import App from './Component';
-import { requestMarvels, requestMarvelId } from '../../utils';
+import { requestMarvels, requestMarvelId } from '../../request';
+import { loadedMarvels, loadedMarvel, reset, fetchMarvel } from '../../ducks';
+
+const mapStateToProps = (state) => ({
+  marvels: state.marvels,
+  currentMarvel: state.currentMarvel,
+  isFetching: state.isFetching,
+  loadingDetail: state.loadingDetail,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadMarvels: () => {
+    requestMarvels().then((marvels) => dispatch(loadedMarvels(marvels)));
+    dispatch(fetchMarvel());
+  },
+  loadMarvel: (id) => {
+    requestMarvelId(id).then((marvel) => dispatch(loadedMarvel(marvel)));
+    dispatch(fetchMarvel());
+  },
+  resetMarvel: () => dispatch(reset()),
+});
 
 const enhance = compose(
-  withState('marvels', 'setMarvels', []),
-  withState('currentMarvel', 'setCurrentMarvel'),
-  withHandlers({
-    loadMarvels: ({ setMarvels }) => () => requestMarvels().then(setMarvels),
-    loadMarvel: ({ setCurrentMarvel }) => (id) => requestMarvelId(id).then(setCurrentMarvel),
-    resetMarvel: ({ setCurrentMarvel }) => () => setCurrentMarvel(),
-  }),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
   lifecycle({
     componentDidMount() {
-      this.props.loadMarvels()
+      this.props.loadMarvels();
     }
   })
-)
+);
 
 export default enhance(App);

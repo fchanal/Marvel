@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { map } from 'ramda'
+import Paragraph from './Paragraph';
 
 const styles = {
   paper: {
@@ -28,9 +28,6 @@ const styles = {
   description: {
     marginBottom: '20px',
   },
-  item: {
-    marginLeft: '10px',
-  },
   paragraph: {
     flexGrow: 1,
   },
@@ -39,37 +36,19 @@ const styles = {
     marginBottom: '15px',
     alignSelf: 'flex-end',
   },
-  listName: {
-    marginTop: '15px',
-  }
 };
 
-const Paragraph = ({ listName, list, classes }) => ((list) ? (
-  <div>
-    <Typography className={classes.listName} variant="subtitle1">{((list.items.length) ? listName : '')}</Typography>
-    {map(({ name, resourceURI }) => (
-      <div className={classes.item} key={resourceURI}>{name}</div>
-    ), list.items)}
-  </div>
-) : null);
-
-Paragraph.propTypes = {
-  listName: PropTypes.string.isRequired,
-  list: PropTypes.object,
-  classes: PropTypes.object.isRequired,
-}
-
-const Detail = ({ currentMarvel: { name, description, series, comics, events }, resetMarvel, classes }) => (
+const Detail = ({ name, description, series, comics, events, resetMarvel, classes }) => (
   <Paper className={classes.paper}>
     <Grid container direction="column" className={classes.detail}>
       <Grid item>
-        <Typography className={classes.description} variant="caption">{((description) ? description : name)}</Typography>
+        <Typography className={classes.description} variant="caption">{description || name}</Typography>
       </Grid>
       <Grid item className={classes.paragraph}>
         <div>
-          <Paragraph list={series} listName={'Series'} classes={classes} />
-          <Paragraph list={comics} listName={'Comics'} classes={classes} />
-          <Paragraph list={events} listName={'Events'} classes={classes} />
+          <Paragraph list={series} listName={'Series'} />
+          <Paragraph list={comics} listName={'Comics'} />
+          <Paragraph list={events} listName={'Events'} />
         </div>
       </Grid>
       <Grid item className={classes.button}>
@@ -80,9 +59,13 @@ const Detail = ({ currentMarvel: { name, description, series, comics, events }, 
 )
 
 Detail.propTypes = {
-  currentMarvel: PropTypes.object,
-  classes: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  series: PropTypes.object.isRequired,
+  comics: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
   resetMarvel: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(Detail);

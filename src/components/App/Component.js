@@ -5,27 +5,29 @@ import { Header, HeaderLeft } from '../Header';
 import Typography from '@material-ui/core/Typography';
 import List from '../List';
 import Detail from '../Detail';
+import Loading from '../Loading';
 
-const Focus = ({ marvels, currentMarvel, loadMarvel, resetMarvel }) => (currentMarvel) ?
-<Detail currentMarvel={currentMarvel} resetMarvel={resetMarvel} /> :
-<List marvels={marvels} loadMarvel={loadMarvel} />;
+const Focus = ({ marvels, currentMarvel, isFetching, loadMarvel, resetMarvel }) => {
+  if (isFetching) return <Loading />;
+  if (currentMarvel)
+    return (<Detail {...currentMarvel} resetMarvel={resetMarvel} />);
+  return (<List marvels={marvels} loadMarvel={loadMarvel} />);
+}
 
 Focus.propTypes = {
   marvels: PropTypes.array.isRequired,
   currentMarvel: PropTypes.object,
   loadMarvel: PropTypes.func.isRequired,
   resetMarvel: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
 }
 
-const App = ({ marvels, currentMarvel, loadMarvel, resetMarvel }) => (
+const App = ({ marvels, currentMarvel, loadMarvel, resetMarvel, isFetching }) => (
   <Grid container direction="column">
     <Header>
-      <HeaderLeft>
-        <Typography variant="h4">MARVEL</Typography>
-      </HeaderLeft>
     </Header>
     <Grid container justify="space-around">
-      <Focus marvels={marvels} currentMarvel={currentMarvel} loadMarvel={loadMarvel} resetMarvel={resetMarvel} />
+      <Focus marvels={marvels} currentMarvel={currentMarvel} loadMarvel={loadMarvel} resetMarvel={resetMarvel} isFetching={isFetching} />
     </Grid>
   </Grid>
 )
@@ -33,7 +35,8 @@ const App = ({ marvels, currentMarvel, loadMarvel, resetMarvel }) => (
 App.propTypes = {
   marvels: PropTypes.array.isRequired,
   currentMarvel: PropTypes.object,
-  loadMarvel : PropTypes.func.isRequired,
+  loadMarvel: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
 }
 
 export default App;
