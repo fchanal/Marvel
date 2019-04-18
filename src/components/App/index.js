@@ -1,38 +1,31 @@
-import { compose, lifecycle } from 'recompose';
-import { connect } from 'react-redux';
-import App from './Component';
-import { requestMarvels, requestMarvelId } from '../../request';
-import { loadedMarvels, loadedMarvel, reset, fetchMarvel } from '../../ducks';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Header from '../Header';
+import Content from '../Content';
 
-const mapStateToProps = (state) => ({
-  marvels: state.marvels,
-  currentMarvel: state.currentMarvel,
-  isFetching: state.isFetching,
-  loadingDetail: state.loadingDetail,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadMarvels: () => {
-    requestMarvels().then((marvels) => dispatch(loadedMarvels(marvels)));
-    dispatch(fetchMarvel());
+const styles = {
+  title: {
+    fontWeight: '900',
+    color: 'white',
+    marginLeft: '545px',
+    letterSpacing: '-3px',
+    transform: 'scaleY(1.3)',
   },
-  loadMarvel: (id) => {
-    requestMarvelId(id).then((marvel) => dispatch(loadedMarvel(marvel)));
-    dispatch(fetchMarvel());
-  },
-  resetMarvel: () => dispatch(reset()),
-});
+};
 
-const enhance = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-  lifecycle({
-    componentDidMount() {
-      this.props.loadMarvels();
-    }
-  })
+const App = ({ classes }) => (
+  <React.Fragment>
+    <Header>
+      <Typography variant="h4" className={classes.title}>MARVEL</Typography>
+    </Header>
+    <Content />
+  </React.Fragment>
 );
 
-export default enhance(App);
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
