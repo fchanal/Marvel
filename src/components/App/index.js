@@ -9,9 +9,10 @@ const styles = {
   title: {
     fontWeight: '900',
     color: 'white',
-    marginLeft: '545px',
+    textAlign: 'center',
     letterSpacing: '-3px',
     transform: 'scaleY(1.3)',
+    width: '100%',
   },
 };
 
